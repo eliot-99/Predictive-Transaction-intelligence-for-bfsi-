@@ -130,30 +130,6 @@ dmypy.json
 *~
 .DS_Store
 
-# Machine Learning Models (large files)
-*.h5
-*.pkl
-*.joblib
-*.onnx
-*.pb
-*.pth
-*.pt
-*.keras
-
-# Dataset files (can be large)
-*.csv
-!Dataset/card_fraud.csv
-!Dataset/card_fraud_processed.csv
-!Dataset/test_dataset_100_mixed.csv
-!Dataset/adversarial_test_100.csv
-
-# Output files
-Output/
-*.png
-*.jpg
-*.jpeg
-*.pdf
-
 # Temporary files
 *.tmp
 *.temp
@@ -180,12 +156,12 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-# Large files
+# Large archives
 *.tar.gz
 *.zip
 *.rar
 
-# Notebooks
+# Notebooks checkpoints
 .ipynb_checkpoints/
 */.ipynb_checkpoints/
 
