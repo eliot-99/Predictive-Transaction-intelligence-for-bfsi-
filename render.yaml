@@ -1,8 +1,9 @@
-# render.yaml
+# render.yaml (ROOT)
 services:
   - type: web
     name: fraud-detection-api
     env: python
+    pythonVersion: "3.11"         
     region: oregon
     plan: free
     buildCommand: pip install -r api/requirements.txt
