@@ -1,12 +1,16 @@
-# render.yaml (ROOT)
 services:
   - type: web
     name: fraud-detection-api
     env: python
-    pythonVersion: "3.11"         
-    region: oregon
-    plan: free
-    buildCommand: pip install -r api/requirements.txt
+    pythonVersion: "3.11"
+    buildCommand: pip install --upgrade pip && pip install -r api/requirements.txt
     startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    region: oregon
     autoDeploy: true
     healthCheckPath: /
+    # Force rebuild
+    buildFilter:
+      paths:
+        - api/requirements.txt
+        - render.yaml
