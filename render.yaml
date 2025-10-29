@@ -2,9 +2,10 @@ services:
   - type: web
     name: fraud-detection-api
     env: python
-    pythonVersion: "3.11"
-    buildCommand: pip install --upgrade pip && pip install -r api/requirements.txt
-    startCommand: uvicorn main:app --app-dir api --host 0.0.0.0 --port $PORT
+    rootDir: api
+    pythonVersion: "3.13"
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     plan: free
     region: oregon
     autoDeploy: true
