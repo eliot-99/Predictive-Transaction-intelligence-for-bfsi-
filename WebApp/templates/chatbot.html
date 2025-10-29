@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}AI Chatbot - FraudGuard BFSI{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <div class="page-header mb-4">
+        <h1 class="display-6 fw-bold text-primary mb-2">
+            <i class="fas fa-comments me-3"></i>AI Fraud Assistant
+        </h1>
+        <p class="page-description">Ask questions about fraud detection and transaction safety</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card h-100 animate__animated animate__fadeInLeft">
+                <div class="card-header py-3">
+                    <h5 class="mb-0 text-white fw-bold">
+                        <i class="fas fa-robot me-2"></i>Chat with FraudGuard AI
+                    </h5>
+                </div>
+                <div class="card-body p-0 d-flex flex-column" style="height: 500px;">
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="flex-grow-1 overflow-auto p-3" style="background-color: #f8f9fa;">
+                        <!-- Initial greeting -->
+                        <div class="mb-3 animate__animated animate__fadeIn">
+                            <div class="d-flex gap-2">
+                                <div class="bg-primary text-white rounded-3 p-3" style="max-width: 70%; word-wrap: break-word;">
+                                    <p class="mb-0 small">
+                                        <i class="fas fa-wave-square me-2"></i>
+                                        Hi! I'm your FraudGuard AI Assistant. I can help you understand fraud risks, transaction safety, and our models.
+                                    </p>
+                                </div>
+                            </div>
+                            <small class="text-muted d-block mt-1">Just now</small>
+                        </div>
+
+                        <div class="mb-3 animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+                            <div class="d-flex gap-2">
+                                <div class="bg-primary text-white rounded-3 p-3" style="max-width: 70%; word-wrap: break-word;">
+                                    <p class="mb-0 small">
+                                        <i class="fas fa-lightbulb me-2"></i>
+                                        Try asking: "Is 75M from Russia at 2 AM safe?" or "How does fraud detection work?"
+                                    </p>
+                                </div>
+                            </div>
+                            <small class="text-muted d-block mt-1">Just now</small>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="border-top p-3 bg-light">
+                        <form id="chatForm" class="d-flex gap-2">
+                            <input type="text" id="messageInput" class="form-control" 
+                                   placeholder="Ask about fraud detection..." required>
+                            <button type="submit" class="btn btn-primary fw-bold">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestions Panel -->
+        <div class="col-lg-4">
+            <div class="card animate__animated animate__fadeInRight">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-star me-2"></i>Quick Questions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <button type="button" class="list-group-item list-group-item-action text-start" 
+                                onclick="sendQuickQuestion('Is a 75M transaction from Russia at 2 AM safe?')">
+                            <i class="fas fa-question-circle me-2 text-danger"></i>
+                            <small>Is a 75M transaction from Russia at 2 AM safe?</small>
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action text-start" 
+                                onclick="sendQuickQuestion('What factors trigger fraud alerts?')">
+                            <i class="fas fa-bell me-2 text-warning"></i>
+                            <small>What factors trigger fraud alerts?</small>
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action text-start" 
+                                onclick="sendQuickQuestion('How accurate is the fraud detection model?')">
+                            <i class="fas fa-chart-line me-2 text-success"></i>
+                            <small>How accurate is the fraud detection model?</small>
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action text-start" 
+                                onclick="sendQuickQuestion('Are foreign transactions always risky?')">
+                            <i class="fas fa-globe me-2 text-info"></i>
+                            <small>Are foreign transactions always risky?</small>
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action text-start" 
+                                onclick="sendQuickQuestion('What is transaction velocity?')">
+                            <i class="fas fa-tachometer-alt me-2 text-primary"></i>
+                            <small>What is transaction velocity?</small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="card mt-4 animate__animated animate__fadeInRight" style="animation-delay: 0.1s;">
+                <div class="card-header bg-secondary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-info-circle me-2"></i>How It Works
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="small">
+                        <p class="mb-2">
+                            <strong>FraudGuard AI</strong> uses advanced machine learning models to detect suspicious transactions in real-time.
+                        </p>
+                        <p class="mb-2 text-muted">
+                            <i class="fas fa-star me-1"></i>99.1% AUC accuracy
+                        </p>
+                        <p class="mb-2 text-muted">
+                            <i class="fas fa-star me-1"></i>Real-time risk scoring
+                        </p>
+                        <p class="mb-0 text-muted">
+                            <i class="fas fa-star me-1"></i>Rule-based fraud signatures
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const chatMessages = document.getElementById('chatMessages');
+    const chatForm = document.getElementById('chatForm');
+    const messageInput = document.getElementById('messageInput');
+
+    // Send message function
+    async function sendMessage(message) {
+        if (!message.trim()) return;
+
+        // Add user message to chat
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.className = 'mb-3 animate__animated animate__fadeIn';
+        userMessageDiv.innerHTML = `
+            <div class="d-flex justify-content-end gap-2">
+                <div class="bg-light rounded-3 p-3" style="max-width: 70%; word-wrap: break-word; background-color: #e9ecef !important;">
+                    <p class="mb-0 small text-dark">${escapeHtml(message)}</p>
+                </div>
+            </div>
+            <small class="text-muted d-block mt-1 text-end">Just now</small>
+        `;
+        chatMessages.appendChild(userMessageDiv);
+
+        // Clear input
+        messageInput.value = '';
+        messageInput.focus();
+
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Show typing indicator
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'mb-3';
+        typingDiv.innerHTML = `
+            <div class="d-flex gap-2">
+                <div class="bg-secondary text-white rounded-3 p-3">
+                    <p class="mb-0 small">
+                        <i class="fas fa-spinner fa-spin me-2"></i>Thinking...
+                    </p>
+                </div>
+            </div>
+        `;
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            // Call API
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+
+            // Remove typing indicator
+            typingDiv.remove();
+
+            // Add bot response
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'mb-3 animate__animated animate__fadeIn';
+            
+            const badgeClass = {
+                'success': 'bg-success',
+                'warning': 'bg-warning text-dark',
+                'danger': 'bg-danger',
+                'info': 'bg-info'
+            }[data.type] || 'bg-primary';
+
+            botMessageDiv.innerHTML = `
+                <div class="d-flex gap-2">
+                    <div class="${badgeClass} text-white rounded-3 p-3" style="max-width: 70%; word-wrap: break-word;">
+                        <p class="mb-0 small">${escapeHtml(data.bot_message)}</p>
+                    </div>
+                </div>
+                <small class="text-muted d-block mt-1">Just now</small>
+            `;
+            chatMessages.appendChild(botMessageDiv);
+        } catch (error) {
+            console.error('Chat error:', error);
+            typingDiv.remove();
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'mb-3 animate__animated animate__fadeIn';
+            errorDiv.innerHTML = `
+                <div class="d-flex gap-2">
+                    <div class="bg-danger text-white rounded-3 p-3">
+                        <p class="mb-0 small">
+                            <i class="fas fa-exclamation-circle me-2"></i>Sorry, I encountered an error. Please try again.
+                        </p>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(errorDiv);
+        }
+
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Form submission
+    chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const message = messageInput.value.trim();
+        if (message) {
+            sendMessage(message);
+        }
+    });
+
+    // Quick question handler
+    function sendQuickQuestion(question) {
+        messageInput.value = question;
+        messageInput.focus();
+        sendMessage(question);
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
+</script>
+{% endblock %}

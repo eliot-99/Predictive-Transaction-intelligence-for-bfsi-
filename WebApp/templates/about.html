@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}About - FraudGuard BFSI{% endblock %}
+
+{% block content %}
+<div class="container-lg">
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 fw-bold text-primary mb-3">
+                <i class="fas fa-shield-alt me-3"></i>FraudGuard BFSI
+            </h1>
+            <p class="lead text-muted">
+                Enterprise-Grade Banking Fraud Detection Platform
+            </p>
+        </div>
+    </div>
+
+    <!-- Project Overview -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-6">
+            <div class="card h-100 animate__animated animate__fadeInUp">
+                <div class="card-body">
+                    <h5 class="card-title text-primary fw-bold">
+                        <i class="fas fa-project-diagram me-2"></i>Project Overview
+                    </h5>
+                    <p class="text-muted">
+                        FraudGuard BFSI is a real-time fraud detection platform designed specifically for banking and financial services institutions. It combines machine learning models with rule-based fraud signatures to identify suspicious transactions instantly.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Real-time detection</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>High accuracy (99.1% AUC)</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Scalable infrastructure</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i>Enterprise-ready</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary fw-bold">
+                        <i class="fas fa-database me-2"></i>Dataset & Training
+                    </h5>
+                    <p class="text-muted">
+                        Trained on a comprehensive dataset of 50,000+ real card transactions with diverse geographical, temporal, and behavioral patterns. The models have been validated on held-out test sets to ensure generalization.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-chart-bar text-info me-2"></i>50,000+ transactions</li>
+                        <li class="mb-2"><i class="fas fa-map-world text-info me-2"></i>Multi-geography data</li>
+                        <li class="mb-2"><i class="fas fa-calendar text-info me-2"></i>Temporal patterns</li>
+                        <li><i class="fas fa-user-friends text-info me-2"></i>Behavioral analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Models -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card animate__animated animate__fadeInUp">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-brain me-2"></i>Machine Learning Models
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <h6 class="fw-bold text-primary">
+                                <i class="fas fa-tree me-2"></i>XGBoost
+                            </h6>
+                            <p class="text-muted">
+                                Gradient boosting model optimized for classification. Excels at capturing non-linear relationships between features.
+                            </p>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-success" style="width: 96%"></div>
+                            </div>
+                            <small class="text-muted">96% AUC</small>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="fw-bold text-primary">
+                                <i class="fas fa-lightbulb me-2"></i>LightGBM
+                            </h6>
+                            <p class="text-muted">
+                                Fast gradient boosting framework with superior performance. Excellent for handling large datasets.
+                            </p>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-success" style="width: 98%"></div>
+                            </div>
+                            <small class="text-muted">98% AUC</small>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="fw-bold text-primary">
+                                <i class="fas fa-microchip me-2"></i>ONNX Runtime
+                            </h6>
+                            <p class="text-muted">
+                                Open Neural Network Exchange format for cross-platform model deployment. Production-optimized inference.
+                            </p>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-success" style="width: 99%"></div>
+                            </div>
+                            <small class="text-muted">99.1% AUC</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card animate__animated animate__fadeInUp">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-cogs me-2"></i>Technology Stack
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-success mb-3">Backend</h6>
+                            <ul class="list-unstyled small">
+                                <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>Flask - Web framework</li>
+                                <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>FastAPI - Fraud detection API</li>
+                                <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>SQLAlchemy - ORM</li>
+                                <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>SQLite - Database</li>
+                                <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>ONNX Runtime - Model inference</li>
+                                <li><i class="fas fa-check me-2 text-success"></i>Gunicorn - Production server</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-primary mb-3">Frontend</h6>
+                            <ul class="list-unstyled small">
+                                <li class="mb-2"><i class="fas fa-check me-2 text-primary"></i>Bootstrap 5 - UI framework</li>
+                                <li class="mb-2"><i class="fas fa-check me-2 text-primary"></i>Chart.js - Analytics visualization</li>
+                                <li class="mb-2"><i class="fas fa-check me-2 text-primary"></i>Animate.css - Animations</li>
+                                <li class="mb-2"><i class="fas fa-check me-2 text-primary"></i>Font Awesome - Icons</li>
+                                <li class="mb-2"><i class="fas fa-check me-2 text-primary"></i>Jinja2 - Template engine</li>
+                                <li><i class="fas fa-check me-2 text-primary"></i>Responsive design - Mobile-first</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deployment -->
+    <div class="row mb-5">
+        <div class="col-lg-6">
+            <div class="card h-100 animate__animated animate__fadeInUp">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-cloud me-2"></i>Deployment
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">
+                        FraudGuard BFSI is deployed on Render with auto-scaling and continuous deployment from GitHub.
+                    </p>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><i class="fas fa-server me-2 text-info"></i>Render Cloud Platform</li>
+                        <li class="mb-2"><i class="fas fa-box me-2 text-info"></i>Docker containerization</li>
+                        <li class="mb-2"><i class="fas fa-arrow-sync me-2 text-info"></i>Auto-deploy on push</li>
+                        <li><i class="fas fa-shield-alt me-2 text-info"></i>SSL/HTTPS encryption</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-code-branch me-2"></i>Source Code
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">
+                        FraudGuard BFSI is open-source and available on GitHub. Contributions are welcome!
+                    </p>
+                    <a href="https://github.com/yourusername/fraudguard-bfsi" 
+                       class="btn btn-outline-primary btn-sm" target="_blank">
+                        <i class="fab fa-github me-2"></i>View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <div class="card animate__animated animate__fadeInUp">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-users me-2"></i>Features
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-primary">Core Features</h6>
+                            <ul class="list-unstyled small text-muted">
+                                <li class="mb-2">✓ Real-time fraud risk assessment</li>
+                                <li class="mb-2">✓ Transaction history with detailed analytics</li>
+                                <li class="mb-2">✓ Risk scoring (0.0 - 1.0)</li>
+                                <li class="mb-2">✓ Alert reasoning (why a transaction is flagged)</li>
+                                <li class="mb-2">✓ CSV export for compliance</li>
+                                <li class="mb-2">✓ AI chatbot for fraud assistance</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-primary">Security Features</h6>
+                            <ul class="list-unstyled small text-muted">
+                                <li class="mb-2">✓ User authentication & sessions</li>
+                                <li class="mb-2">✓ Password hashing (Werkzeug)</li>
+                                <li class="mb-2">✓ HTTPS/SSL encryption</li>
+                                <li class="mb-2">✓ SQL injection prevention (SQLAlchemy ORM)</li>
+                                <li class="mb-2">✓ XSS protection</li>
+                                <li class="mb-2">✓ CSRF protection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card bg-light animate__animated animate__fadeInUp">
+                <div class="card-body text-center py-5">
+                    <h5 class="card-title fw-bold text-primary mb-3">
+                        <i class="fas fa-envelope me-2"></i>Contact & Support
+                    </h5>
+                    <p class="text-muted mb-3">
+                        Have questions or need support? Reach out to our team or open an issue on GitHub.
+                    </p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="https://github.com/yourusername/fraudguard-bfsi" class="btn btn-outline-primary" target="_blank">
+                            <i class="fab fa-github me-2"></i>GitHub
+                        </a>
+                        <a href="mailto:contact@fraudguard.bfsi" class="btn btn-outline-primary">
+                            <i class="fas fa-envelope me-2"></i>Email
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

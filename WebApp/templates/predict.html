@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+
+{% block title %}Fraud Prediction - FraudGuard BFSI{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <div class="page-header mb-4">
+        <h1 class="display-6 fw-bold text-primary mb-2">
+            <i class="fas fa-flask me-3"></i>Fraud Risk Assessment
+        </h1>
+        <p class="page-description">Enter transaction details for real-time fraud detection</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Prediction Form -->
+        <div class="col-lg-8">
+            <div class="card animate__animated animate__fadeInLeft">
+                <div class="card-header py-3">
+                    <h5 class="mb-0 text-white fw-bold">
+                        <i class="fas fa-edit me-2"></i>Transaction Details (25 Fields)
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" id="predictionForm">
+                        <!-- Section 1: Basic Info -->
+                        <h6 class="text-primary fw-bold mb-3">
+                            <i class="fas fa-info-circle me-2"></i>Basic Information
+                        </h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">User ID</label>
+                                <input type="number" class="form-control" name="User_ID" value="1" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Transaction Amount (UZS)</label>
+                                <input type="number" step="0.01" class="form-control" name="Transaction_Amount" value="1000000" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Location</label>
+                                <select class="form-select" name="Transaction_Location" required>
+                                    <option value="Tashkent">Tashkent</option>
+                                    <option value="Samarkand">Samarkand</option>
+                                    <option value="Bukhara">Bukhara</option>
+                                    <option value="Moscow">Moscow</option>
+                                    <option value="Dubai">Dubai</option>
+                                    <option value="Russia">Russia</option>
+                                    <option value="Turkey">Turkey</option>
+                                    <option value="USA">USA</option>
+                                    <option value="China">China</option>
+                                    <option value="UAE">UAE</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Merchant ID</label>
+                                <input type="number" class="form-control" name="Merchant_ID" value="1" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Device ID</label>
+                                <input type="number" class="form-control" name="Device_ID" value="1" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Card Type</label>
+                                <select class="form-select" name="Card_Type" required>
+                                    <option value="Credit">Credit</option>
+                                    <option value="Debit">Debit</option>
+                                    <option value="Prepaid">Prepaid</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Transaction Details -->
+                        <h6 class="text-primary fw-bold mb-3 mt-4">
+                            <i class="fas fa-receipt me-2"></i>Transaction Details
+                        </h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Currency</label>
+                                <select class="form-select" name="Transaction_Currency" required>
+                                    <option value="UZS">UZS</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="RUB">RUB</option>
+                                    <option value="AED">AED</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Transaction Status</label>
+                                <select class="form-select" name="Transaction_Status" required>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Declined">Declined</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Previous Transaction Count</label>
+                                <input type="number" class="form-control" name="Previous_Transaction_Count" value="5" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Distance Between Transactions (km)</label>
+                                <input type="number" step="0.01" class="form-control" name="Distance_Between_Transactions_km" value="0" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Time Since Last Transaction (min)</label>
+                                <input type="number" class="form-control" name="Time_Since_Last_Transaction_min" value="60" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Authentication Method</label>
+                                <select class="form-select" name="Authentication_Method" required>
+                                    <option value="PIN">PIN</option>
+                                    <option value="OTP">OTP</option>
+                                    <option value="Biometric">Biometric</option>
+                                    <option value="Password">Password</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Behavioral -->
+                        <h6 class="text-primary fw-bold mb-3 mt-4">
+                            <i class="fas fa-chart-bar me-2"></i>Behavioral Indicators
+                        </h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Transaction Velocity (per hour)</label>
+                                <input type="number" class="form-control" name="Transaction_Velocity" value="1" required>
+                                <small class="text-muted">How many transactions in last hour</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Transaction Category</label>
+                                <select class="form-select" name="Transaction_Category" required>
+                                    <option value="Shopping">Shopping</option>
+                                    <option value="Dining">Dining</option>
+                                    <option value="Travel">Travel</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Bills">Bills</option>
+                                    <option value="Transfer">Transfer</option>
+                                    <option value="Withdrawal">Withdrawal</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: Temporal -->
+                        <h6 class="text-primary fw-bold mb-3 mt-4">
+                            <i class="fas fa-clock me-2"></i>Temporal Features
+                        </h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">Hour (0-23)</label>
+                                <input type="range" class="form-range" name="Transaction_Hour" min="0" max="23" value="12" required>
+                                <small class="text-muted d-block mt-1">Current: <span id="hourValue">12</span>:00</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Day of Month</label>
+                                <input type="number" class="form-control" name="Transaction_Day" min="1" max="31" value="15" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Month</label>
+                                <input type="number" class="form-control" name="Transaction_Month" min="1" max="12" value="6" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Weekday (0=Mon, 6=Sun)</label>
+                                <select class="form-select" name="Transaction_Weekday" required>
+                                    <option value="0">Monday</option>
+                                    <option value="1">Tuesday</option>
+                                    <option value="2" selected>Wednesday</option>
+                                    <option value="3">Thursday</option>
+                                    <option value="4">Friday</option>
+                                    <option value="5">Saturday</option>
+                                    <option value="6">Sunday</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Log Amount</label>
+                                <input type="number" step="0.01" class="form-control" name="Log_Transaction_Amount" value="0" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Hour Sin (calculated)</label>
+                                <input type="number" step="0.01" class="form-control" name="Hour_sin" value="0" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Section 5: Interaction Features -->
+                        <h6 class="text-primary fw-bold mb-3 mt-4">
+                            <i class="fas fa-link me-2"></i>Interaction Features
+                        </h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Hour Cos (calculated)</label>
+                                <input type="number" step="0.01" class="form-control" name="Hour_cos" value="1" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Weekday Sin (calculated)</label>
+                                <input type="number" step="0.01" class="form-control" name="Weekday_sin" value="0" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Velocity × Distance</label>
+                                <input type="number" step="0.01" class="form-control" name="Velocity_Distance_Interact" value="0" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Amount × Velocity</label>
+                                <input type="number" step="0.01" class="form-control" name="Amount_Velocity_Interact" value="0" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Time × Distance</label>
+                                <input type="number" step="0.01" class="form-control" name="Time_Distance_Interact" value="0" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Weekday Cos (calculated)</label>
+                                <input type="number" step="0.01" class="form-control" name="Weekday_cos" value="1" readonly>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg fw-bold flex-grow-1">
+                                <i class="fas fa-flask me-2"></i>Predict Fraud Risk
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary btn-lg fw-bold">
+                                <i class="fas fa-redo me-2"></i>Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Panel (if available) -->
+        <div class="col-lg-4">
+            {% if show_result and result %}
+                <div class="card border-0 animate__animated animate__fadeInRight">
+                    <div class="card-header bg-{{ risk_class }} text-white py-3">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="fas fa-{% if risk_class == 'danger' %}exclamation-triangle animate__animated animate__pulse animate__infinite{% else %}check-circle{% endif %} me-2"></i>
+                            Risk Assessment Result
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Risk Level -->
+                        <div class="mb-4 text-center">
+                            <h1 class="display-3 fw-bold text-{{ risk_class }}">
+                                {{ risk_level }}
+                            </h1>
+                            <p class="text-muted mb-0">
+                                Risk Level Classification
+                            </p>
+                        </div>
+
+                        <!-- Key Metrics -->
+                        <div class="row g-2 mb-4">
+                            <div class="col-6">
+                                <div class="p-2 bg-light rounded">
+                                    <small class="d-block text-muted mb-1">Fraud Probability</small>
+                                    <h6 class="mb-0 fw-bold">{{ "{:.1%}".format(result.Fraud_Probability) }}</h6>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-2 bg-light rounded">
+                                    <small class="d-block text-muted mb-1">Risk Score</small>
+                                    <h6 class="mb-0 fw-bold">{{ "{:.2f}".format(result.Final_Risk_Score) }}/1.0</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alert Triggered -->
+                        <div class="alert alert-{{ risk_class }} mb-3" role="alert">
+                            <i class="fas fa-bell me-2"></i>
+                            {% if result.alert_triggered %}
+                                <strong>ALERT TRIGGERED</strong> - High fraud risk detected
+                            {% else %}
+                                <strong>NO ALERT</strong> - Transaction appears safe
+                            {% endif %}
+                        </div>
+
+                        <!-- Alert Reasons -->
+                        {% if result.alert_reasons %}
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-2 text-warning">
+                                    <i class="fas fa-warning me-2"></i>Risk Factors:
+                                </h6>
+                                <ul class="list-unstyled">
+                                    {% for reason in result.alert_reasons %}
+                                        <li class="mb-2">
+                                            <span class="badge bg-warning me-2">
+                                                <i class="fas fa-exclamation me-1"></i>{{ reason }}
+                                            </span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        <!-- Transaction ID -->
+                        <div class="bg-light p-3 rounded">
+                            <small class="d-block text-muted mb-1">Transaction ID</small>
+                            <code class="text-monospace">{{ result.Transaction_ID }}</code>
+                        </div>
+
+                        <a href="{{ url_for('history') }}" class="btn btn-primary w-100 mt-3">
+                            <i class="fas fa-history me-2"></i>View History
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card border-0 bg-light">
+                    <div class="card-body text-center py-5">
+                        <i class="fas fa-clipboard-list text-muted" style="font-size: 3rem;"></i>
+                        <p class="text-muted mt-3 mb-0">
+                            Fill in the form and click "Predict" to assess fraud risk
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Update hour display
+    document.querySelector('[name="Transaction_Hour"]').addEventListener('change', function() {
+        document.getElementById('hourValue').textContent = this.value;
+    });
+
+    // Auto-calculate sin/cos values
+    function updateTrigonometric() {
+        const hour = parseInt(document.querySelector('[name="Transaction_Hour"]').value);
+        const weekday = parseInt(document.querySelector('[name="Transaction_Weekday"]').value);
+        
+        const hour_sin = Math.sin(2 * Math.PI * hour / 24);
+        const hour_cos = Math.cos(2 * Math.PI * hour / 24);
+        const weekday_sin = Math.sin(2 * Math.PI * weekday / 7);
+        const weekday_cos = Math.cos(2 * Math.PI * weekday / 7);
+        
+        document.querySelector('[name="Hour_sin"]').value = hour_sin.toFixed(2);
+        document.querySelector('[name="Hour_cos"]').value = hour_cos.toFixed(2);
+        document.querySelector('[name="Weekday_sin"]').value = weekday_sin.toFixed(2);
+        document.querySelector('[name="Weekday_cos"]').value = weekday_cos.toFixed(2);
+    }
+
+    document.querySelector('[name="Transaction_Hour"]').addEventListener('change', updateTrigonometric);
+    document.querySelector('[name="Transaction_Weekday"]').addEventListener('change', updateTrigonometric);
+    
+    // Initialize on load
+    updateTrigonometric();
+
+    // Handle form submission with loading spinner
+    document.getElementById('predictionForm').addEventListener('submit', function(e) {
+        const btn = this.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Analyzing...';
+    });
+</script>
+{% endblock %}
