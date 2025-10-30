@@ -5,7 +5,7 @@ Main Flask Application
 import os
 import csv
 from datetime import datetime
-from io import StringIO
+from io import StringIO, BytesIO
 from functools import wraps
 
 import requests
@@ -334,7 +334,8 @@ def predict():
                                  payload=payload,
                                  risk_level=risk_level,
                                  risk_class=risk_class,
-                                 show_result=True)
+                                 show_result=True,
+                                 now=datetime.utcnow())
         
         except requests.exceptions.RequestException as e:
             logger.error(f"API call failed: {e}")
@@ -366,7 +367,9 @@ def history():
                          transactions=transactions,
                          page=page,
                          total_pages=paginated.pages,
-                         total_transactions=paginated.total)
+                         total_transactions=paginated.total,
+                         max=max,
+                         min=min)
 
 @app.route('/api/history')
 @login_required
@@ -396,7 +399,7 @@ def export_csv():
             Transaction.created_at.desc()
         ).all()
         
-        # Create CSV
+        # Create CSV in memory
         output = StringIO()
         writer = csv.writer(output)
         writer.writerow(['Transaction ID', 'Date', 'Amount (UZS)', 'Location', 
@@ -414,15 +417,22 @@ def export_csv():
                 tx.alert_reasons or 'N/A'
             ])
         
+        # Convert StringIO to BytesIO
         output.seek(0)
+        bytes_output = BytesIO(output.getvalue().encode('utf-8'))
+        bytes_output.seek(0)
+        
         return send_file(
-            StringIO(output.getvalue()),
+            bytes_output,
             mimetype='text/csv',
             as_attachment=True,
-            download_name=f'fraudguard_export_{datetime.utcnow().strftime("%Y%m%d_%H%M%S")}.csv'
+            attachment_filename=f'fraudguard_export_{datetime.utcnow().strftime("%Y%m%d_%H%M%S")}.csv'
         )
     except Exception as e:
-        logger.error(f"CSV export error: {e}")
+        import traceback
+        error_msg = traceback.format_exc()
+        logger.error(f"CSV export error: {e}\n{error_msg}")
+        print(f"CSV export error: {e}\n{error_msg}")
         flash('Error exporting CSV.', 'danger')
         return redirect(url_for('history'))
 

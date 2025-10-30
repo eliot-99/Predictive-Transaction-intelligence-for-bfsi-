@@ -485,7 +485,7 @@ const Performance = {
 // Console Helpers (Development)
 // =====================================================
 
-if (process.env.NODE_ENV !== 'production') {
+if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     window.fgDebug = {
         storage: Storage,
         notification: Notification,

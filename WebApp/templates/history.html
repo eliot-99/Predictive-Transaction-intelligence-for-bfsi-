@@ -95,27 +95,30 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                {% if tx.alert_triggered %}
-                                                    <span class="badge bg-danger">
-                                                        <i class="fas fa-exclamation-circle me-1"></i>ALERT
-                                                    </span>
-                                                    <br>
-                                                    <small class="text-muted">{{ tx.alert_reasons }}</small>
-                                                {% elif tx.risk_score > 0.4 %}
-                                                    <span class="badge bg-warning text-dark">
-                                                        <i class="fas fa-exclamation-triangle me-1"></i>MEDIUM
-                                                    </span>
-                                                {% else %}
-                                                    <span class="badge bg-success">
-                                                        <i class="fas fa-check-circle me-1"></i>SAFE
-                                                    </span>
-                                                {% endif %}
-                                                
-                                                <!-- Details Button -->
-                                                <button class="btn btn-sm btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#detailsModal" 
-                                                        onclick="showTransactionDetails({{ tx.id }})">
-                                                    <i class="fas fa-eye"></i> View
-                                                </button>
+                                                <div class="d-flex align-items-flex-start justify-content-between gap-2">
+                                                    <div>
+                                                        {% if tx.alert_triggered %}
+                                                            <span class="badge bg-danger">
+                                                                <i class="fas fa-exclamation-circle me-1"></i>ALERT
+                                                            </span>
+                                                            <br>
+                                                            <small class="text-muted d-block mt-1">{{ tx.alert_reasons }}</small>
+                                                        {% elif tx.risk_score > 0.4 %}
+                                                            <span class="badge bg-warning text-dark">
+                                                                <i class="fas fa-exclamation-triangle me-1"></i>MEDIUM
+                                                            </span>
+                                                        {% else %}
+                                                            <span class="badge bg-success">
+                                                                <i class="fas fa-check-circle me-1"></i>SAFE
+                                                            </span>
+                                                        {% endif %}
+                                                    </div>
+                                                    <!-- Details Button -->
+                                                    <button class="btn btn-sm btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#detailsModal" 
+                                                            onclick="showTransactionDetails({{ tx.id }})" style="white-space: nowrap; flex-shrink: 0;">
+                                                        <i class="fas fa-eye"></i> View
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     {% endfor %}
