@@ -1136,7 +1136,7 @@ footer a:hover {
 }
 
 .card-body p {
-    color: #555555;
+        color: #fff;
 }
 
 .card-body small,
@@ -2277,7 +2277,7 @@ table, tr, td, th, button, input, select, textarea {
 }
 
 .text-white {
-    color: #ffffff !important;
+    color: #ffc107 !important;
 }
 
 .text-light {

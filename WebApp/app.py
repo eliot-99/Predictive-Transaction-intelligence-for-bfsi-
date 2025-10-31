@@ -426,7 +426,7 @@ def export_csv():
             bytes_output,
             mimetype='text/csv',
             as_attachment=True,
-            attachment_filename=f'fraudguard_export_{datetime.utcnow().strftime("%Y%m%d_%H%M%S")}.csv'
+            download_name=f'fraudguard_export_{datetime.utcnow().strftime("%Y%m%d_%H%M%S")}.csv'
         )
     except Exception as e:
         import traceback
